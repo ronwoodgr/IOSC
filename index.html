@@ -60,7 +60,7 @@
     display:flex;gap:10px;padding:10px;border-radius:12px;align-items:flex-start;background:linear-gradient(180deg, rgba(250,252,255,1), var(--glass));
     border:1px solid rgba(10,20,40,0.03)
   }
-  .ex .left{width:34px;display:flex;align-items:center;justify-content:center}
+  .ex .left{width:34px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px}
   .ex strong{display:block;font-size:14px}
   .ex small{color:var(--muted);display:block;margin-top:4px;font-size:12px}
   .ex .meta{margin-left:auto;text-align:right;font-size:13px;color:var(--muted)}
@@ -87,6 +87,58 @@
     .controls, header, footer{display:none}
     .day{page-break-inside:avoid;box-shadow:none;border:1px solid #ddd}
   }
+
+  /* ====== Variant (alternatives) UI ====== */
+  .variant-btn{
+    display:inline-flex;align-items:center;justify-content:center;margin-left:6px;
+    border:1px solid #e6eef9;background:#fff;border-radius:6px;padding:0 6px;height:20px;cursor:pointer;
+    font-size:12px;line-height:1;vertical-align:middle;box-shadow:0 3px 10px rgba(15,23,42,0.04);
+  }
+  .variant-menu{
+    position:absolute;z-index:60;background:var(--card);border:1px solid rgba(15,23,42,0.08);border-radius:10px;padding:8px;
+    box-shadow:0 20px 40px rgba(15,23,42,0.15);display:none;min-width:220px;max-width:280px
+  }
+  .variant-menu.open{display:block}
+  .variant-menu h4{margin:4px 6px 8px;font-size:12px;color:var(--muted)}
+  .variant-opt{
+    display:flex;align-items:flex-start;gap:8px;width:100%;border:0;background:transparent;padding:8px;border-radius:8px;cursor:pointer;text-align:left
+  }
+  .variant-opt:hover{background:rgba(15,23,42,0.04)}
+  .variant-opt .title{font-size:13px}
+  .variant-opt .sets{font-size:11px;padding:2px 6px;border-radius:999px;background:rgba(15,23,42,0.06)}
+  .variant-opt small{color:var(--muted);display:block;margin-top:2px}
+  .variant-opt .cat{margin-left:auto;font-size:11px;color:var(--muted)}
+
+  /* ---- Rest Timer UI ---- */
+  .timer-btn, .preset-btn{
+    border:1px solid #e6eef9;background:#fff;border-radius:8px;padding:4px 6px;font-size:11px;cursor:pointer;
+    box-shadow:0 3px 10px rgba(15,23,42,0.04);
+  }
+  .timer-btn{display:inline-flex;align-items:center;gap:4px}
+  .timer-btn:active{transform:scale(.98)}
+  .preset-btn{font-size:10px;opacity:.8}
+  .rt-menu{
+    position:absolute;z-index:55;background:var(--card);border:1px solid rgba(15,23,42,0.08);border-radius:10px;padding:6px;
+    box-shadow:0 20px 40px rgba(15,23,42,0.15);display:none;min-width:160px
+  }
+  .rt-menu.open{display:block}
+  .rt-menu h4{margin:4px 6px 6px;font-size:12px;color:var(--muted)}
+  .rt-row{display:flex;flex-wrap:wrap;gap:6px}
+  .rt-chip{
+    border:1px solid #e6eef9;background:#fff;border-radius:999px;padding:6px 10px;font-size:12px;cursor:pointer
+  }
+  .rt-chip.active{background:#eef6ff;color:var(--accent);border-color:rgba(17,103,177,0.18)}
+  /* Stacked running timers (bottom center) */
+  .running-timers{
+    position:fixed;left:50%;transform:translateX(-50%);bottom:18px;display:flex;flex-direction:column;gap:8px;z-index:9999
+  }
+  .timer-pill{
+    display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid rgba(15,23,42,0.08);
+    border-radius:999px;padding:8px 12px;box-shadow:0 10px 30px rgba(0,0,0,.15);font-size:13px
+  }
+  .timer-pill .name{max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .timer-pill .time{font-variant-numeric:tabular-nums;color:var(--muted)}
+  .timer-pill button{border:0;background:transparent;color:var(--danger);font-size:16px;line-height:1;cursor:pointer}
 </style>
 </head>
 <body>
@@ -137,9 +189,14 @@
       <section class="content" aria-hidden="true">
         <div class="exercise-list">
           <div class="ex" data-ex="Barbell Bench Press">
-            <div class="left"><input type="checkbox" data-key="d1-bench"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d1-bench">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Barbell Bench Press <span class="tag">4×6</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Mid chest (pectoralis major), front delts, triceps • Push compound for pressing strength & size.</small>
               <div class="notes small">Tip: tuck elbows ~45°, drive feet, press in an arc. Controlled descent, explosive up.</div>
             </div>
@@ -147,9 +204,14 @@
           </div>
 
           <div class="ex" data-ex="Pull-Ups">
-            <div class="left"><input type="checkbox" data-key="d1-pullups"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d1-pullups">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Pull-Ups / Lat Pulldown <span class="tag">4×6–8</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Lats (width), biceps, rear delts • Vertical pulling motion for back width.</small>
               <div class="notes small">Tip: full range of motion, chest to bar. Use assistance if needed; add weight when strong.</div>
             </div>
@@ -157,9 +219,14 @@
           </div>
 
           <div class="ex" data-ex="Overhead Press">
-            <div class="left"><input type="checkbox" data-key="d1-ohp"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d1-ohp">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Overhead Press (Barbell/Dumbbell) <span class="tag">3×8</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Shoulders (front + side delts), triceps • Standing press builds upper-body pressing power and core stability.</small>
               <div class="notes small">Tip: braced core, slightly overhead bar path, avoid excessive lumbar arch.</div>
             </div>
@@ -167,9 +234,14 @@
           </div>
 
           <div class="ex" data-ex="Barbell Row">
-            <div class="left"><input type="checkbox" data-key="d1-row"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d1-row">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Barbell Row <span class="tag">3×8–10</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Back thickness (lats, rhomboids, traps), rear delts, biceps • Horizontal pull to balance pressing.</small>
               <div class="notes small">Tip: chest up, hips back; pull bar to low chest. Use strict form to protect lower back.</div>
             </div>
@@ -177,9 +249,14 @@
           </div>
 
           <div class="ex" data-ex="Lateral Raises">
-            <div class="left"><input type="checkbox" data-key="d1-latraise"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d1-latraise">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Dumbbell Lateral Raises <span class="tag">2×12–15</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Side delts • Isolation for shoulder cap and width.</small>
               <div class="notes small">Tip: light weight, lead with elbow, small range for side delt focus.</div>
             </div>
@@ -215,19 +292,29 @@
       <section class="content" aria-hidden="true">
         <div class="exercise-list">
           <div class="ex">
-            <div class="left"><input type="checkbox" data-key="d2-squat"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d2-squat">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Back Squat <span class="tag">4×6</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Quads, glutes, core • Foundation for lower-body strength.</small>
               <div class="notes small">Tip: neutral spine, knees tracking toes. Depth as mobility allows. Drive through heels.</div>
             </div>
-            <div class="meta">Push</div>
+            <div class="meta">Legs</div>
           </div>
 
           <div class="ex">
-            <div class="left"><input type="checkbox" data-key="d2-rdl"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d2-rdl">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Romanian Deadlift <span class="tag">3×8</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Hamstrings, glutes, lower back (erector spinae) • Posterior chain strength.</small>
               <div class="notes small">Tip: hinge at hips, slight knee bend, keep bar close to legs.</div>
             </div>
@@ -235,19 +322,29 @@
           </div>
 
           <div class="ex">
-            <div class="left"><input type="checkbox" data-key="d2-lunge"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d2-lunge">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Walking Lunges <span class="tag">2×12/leg</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Quads, glutes, single-leg stability.</small>
               <div class="notes small">Tip: long stride for glute focus; short stride for quad focus.</div>
             </div>
-            <div class="meta">Push</div>
+            <div class="meta">Legs</div>
           </div>
 
           <div class="ex">
-            <div class="left"><input type="checkbox" data-key="d2-hangleg"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d2-hangleg">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Hanging Leg Raises <span class="tag">3×12–15</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Lower abs, hip flexors • Great for core and midsection definition.</small>
               <div class="notes small">Tip: control the descent; tuck knees first if straight legs too hard.</div>
             </div>
@@ -255,9 +352,14 @@
           </div>
 
           <div class="ex">
-            <div class="left"><input type="checkbox" data-key="d2-sideplank"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d2-sideplank">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Side Plank <span class="tag">3×30–45s/side</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Obliques, transverse abdominis • Anti-rotation & posture support.</small>
               <div class="notes small">Tip: hips high, ribs tucked. Great for desk posture and oblique development.</div>
             </div>
@@ -289,27 +391,42 @@
       <section class="content" aria-hidden="true">
         <div class="exercise-list">
           <div class="ex">
-            <div class="left"><input type="checkbox" data-key="d3-incline"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d3-incline">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Incline Dumbbell Press <span class="tag">3×8–10</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Upper chest, front delts • Great for chest shaping and upper pec development.</small>
             </div>
             <div class="meta">Push</div>
           </div>
 
           <div class="ex">
-            <div class="left"><input type="checkbox" data-key="d3-row"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d3-row">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Seated Cable Row <span class="tag">3×10</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Mid back, rear delts, biceps • Controlled horizontal pulling.</small>
             </div>
             <div class="meta">Pull</div>
           </div>
 
           <div class="ex">
-            <div class="left"><input type="checkbox" data-key="d3-swing"></div>
+            <div class="left">
+              <input type="checkbox" data-key="d3-swing">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div>
               <strong>Kettlebell Swings <span class="tag">3×15</span></strong>
+              <button class="variant-btn" aria-label="Choose alternative">▼</button>
               <small>Targets: Glutes, hamstrings, lower back • Explosive hip hinge for power + conditioning.</small>
             </div>
             <div class="meta">Power</div>
@@ -344,28 +461,58 @@
 
       <section class="content" aria-hidden="true">
         <div class="exercise-list">
-          <div class="ex"><div class="left"><input type="checkbox" data-key="d4-incline"></div>
+          <div class="ex"><div class="left">
+              <input type="checkbox" data-key="d4-incline">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div><strong>Incline Bench Press <span class="tag">3×8</span></strong>
+            <button class="variant-btn" aria-label="Choose alternative">▼</button>
             <small>Targets: Upper chest • Focused shaping.</small></div><div class="meta">Push</div></div>
 
-          <div class="ex"><div class="left"><input type="checkbox" data-key="d4-pull"></div>
+          <div class="ex"><div class="left">
+              <input type="checkbox" data-key="d4-pull">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div><strong>Pull-ups / Lat Pulldown <span class="tag">3×8–10</span></strong>
+            <button class="variant-btn" aria-label="Choose alternative">▼</button>
             <small>Targets: Width & lats, great for balanced back development.</small></div><div class="meta">Pull</div></div>
 
-          <div class="ex"><div class="left"><input type="checkbox" data-key="d4-ohplight"></div>
+          <div class="ex"><div class="left">
+              <input type="checkbox" data-key="d4-ohplight">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div><strong>Overhead Press (lighter) <span class="tag">3×10</span></strong>
+            <button class="variant-btn" aria-label="Choose alternative">▼</button>
             <small>Targets: Shoulders & triceps • Higher rep variation to add shape.</small></div><div class="meta">Push</div></div>
 
-          <div class="ex"><div class="left"><input type="checkbox" data-key="d4-facepull"></div>
+          <div class="ex"><div class="left">
+              <input type="checkbox" data-key="d4-facepull">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div><strong>Face Pulls <span class="tag">3×12–15</span></strong>
+            <button class="variant-btn" aria-label="Choose alternative">▼</button>
             <small>Targets: Rear delts, rotator cuff, traps • Key for posture and rounded shoulder look.</small></div><div class="meta">Pull</div></div>
 
-          <div class="ex"><div class="left"><input type="checkbox" data-key="d4-biceps"></div>
+          <div class="ex"><div class="left">
+              <input type="checkbox" data-key="d4-biceps">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div><strong>Biceps Curls <span class="tag">2×12</span></strong>
+            <button class="variant-btn" aria-label="Choose alternative">▼</button>
             <small>Targets: Biceps • Definition and arm shaping.</small></div><div class="meta">Accessory</div></div>
 
-          <div class="ex"><div class="left"><input type="checkbox" data-key="d4-triceps"></div>
+          <div class="ex"><div class="left">
+              <input type="checkbox" data-key="d4-triceps">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div><strong>Triceps Rope Pushdowns <span class="tag">2×12</span></strong>
+            <button class="variant-btn" aria-label="Choose alternative">▼</button>
             <small>Targets: Triceps • Helps pressing performance and arm definition.</small></div><div class="meta">Accessory</div></div>
         </div>
       </section>
@@ -392,21 +539,41 @@
 
       <section class="content" aria-hidden="true">
         <div class="exercise-list">
-          <div class="ex"><div class="left"><input type="checkbox" data-key="d5-front"></div>
+          <div class="ex"><div class="left">
+              <input type="checkbox" data-key="d5-front">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div><strong>Front Squat / Goblet Squat <span class="tag">3×8–10</span></strong>
-            <small>Targets: Quads, core • Front-loading increases core demand & leg shape.</small></div><div class="meta">Push</div></div>
+            <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <small>Targets: Quads, core • Front-loading increases core demand & leg shape.</small></div><div class="meta">Legs</div></div>
 
-          <div class="ex"><div class="left"><input type="checkbox" data-key="d5-hip"></div>
+          <div class="ex"><div class="left">
+              <input type="checkbox" data-key="d5-hip">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div><strong>Barbell Hip Thrust <span class="tag">3×8–10</span></strong>
-            <small>Targets: Glutes • Primary shaping movement for posterior chain.</small></div><div class="meta">Push</div></div>
+            <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <small>Targets: Glutes • Primary shaping movement for posterior chain.</small></div><div class="meta">Legs</div></div>
 
-          <div class="ex"><div class="left"><input type="checkbox" data-key="d5-legcurl"></div>
+          <div class="ex"><div class="left">
+              <input type="checkbox" data-key="d5-legcurl">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div><strong>Leg Curl <span class="tag">3×10–12</span></strong>
+            <button class="variant-btn" aria-label="Choose alternative">▼</button>
             <small>Targets: Hamstrings • Isolation to balance quad work.</small></div><div class="meta">Pull</div></div>
 
-          <div class="ex"><div class="left"><input type="checkbox" data-key="d5-bulg"></div>
+          <div class="ex"><div class="left">
+              <input type="checkbox" data-key="d5-bulg">
+              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+            </div>
             <div><strong>Bulgarian Split Squat <span class="tag">2×12/leg</span></strong>
-            <small>Targets: Quads, glutes, single-leg stability.</small></div><div class="meta">Push</div></div>
+            <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <small>Targets: Quads, glutes, single-leg stability.</small></div><div class="meta">Legs</div></div>
         </div>
 
         <div class="finisher">
@@ -422,6 +589,9 @@
   </footer>
 </div>
 
+<!-- Stacked running timers -->
+<div class="running-timers" aria-live="polite" aria-atomic="true"></div>
+
 <script>
   // --- Simple app JS: collapsibles, localStorage for goals + exercise checks ---
   (function(){
@@ -433,9 +603,7 @@
 
     // Helpers
     const ls = window.localStorage || {};
-    const getLS = (k, def) => {
-      try { const v = ls.getItem(k); return v ? JSON.parse(v) : def; } catch(e){return def;}
-    };
+    const getLS = (k, def) => { try { const v = ls.getItem(k); return v ? JSON.parse(v) : def; } catch(e){return def;} };
     const setLS = (k,v) => { try { ls.setItem(k, JSON.stringify(v)); } catch(e){} };
 
     // Load saved expanded state? by default collapsed.
@@ -445,7 +613,6 @@
       const header = day.querySelector('.day-header');
       const content = day.querySelector('.content');
       const dayId = day.id;
-      // restore
       if(savedExpanded[dayId]) content.classList.add('open'), content.setAttribute('aria-hidden','false');
       header.addEventListener('click', ()=> toggle(dayId, content));
       header.addEventListener('keydown', (e) => { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggle(dayId, content);} });
@@ -456,34 +623,39 @@
       savedExpanded[dayId] = open;
       setLS('pocket:expanded', savedExpanded);
     }
-    expandAll.addEventListener('click', ()=> { document.querySelectorAll('.content').forEach(c=>{ c.classList.add('open'); c.setAttribute('aria-hidden','false');}); setLS('pocket:expanded', Object.fromEntries(Array.from(document.querySelectorAll('.day')).map(d=>[d.id,true])));});
-    collapseAll.addEventListener('click', ()=> { document.querySelectorAll('.content').forEach(c=>{ c.classList.remove('open'); c.setAttribute('aria-hidden','true');}); setLS('pocket:expanded', {});});
+    expandAll.addEventListener('click', ()=> {
+      document.querySelectorAll('.content').forEach(c=>{ c.classList.add('open'); c.setAttribute('aria-hidden','false');});
+      setLS('pocket:expanded', Object.fromEntries(Array.from(document.querySelectorAll('.day')).map(d=>[d.id,true])));
+    });
+    collapseAll.addEventListener('click', ()=> {
+      document.querySelectorAll('.content').forEach(c=>{ c.classList.remove('open'); c.setAttribute('aria-hidden','true');});
+      setLS('pocket:expanded', {});
+    });
+
     // Goals: load and toggle
     const savedGoals = getLS('pocket:goals', {});
     goalBtns.forEach(btn=>{
       const key = btn.dataset.goal;
       if(savedGoals[key]) btn.classList.add('active');
-      btn.addEventListener('click', ()=> {
+      btn.addEventListener('click', ()=>{
         const on = btn.classList.toggle('active');
         savedGoals[key] = on;
         setLS('pocket:goals', savedGoals);
-        // Optional: you can add dynamic behavior based on goals here.
         flashToast(on ? `Goal saved: ${key}` : `Goal removed: ${key}`);
       });
     });
 
     // Exercise checks persistence
-    const checkboxes = document.querySelectorAll('input[type="checkbox"][data-key]');
     const savedChecks = getLS('pocket:checks', {});
-    checkboxes.forEach(cb => {
+    document.querySelectorAll('input[type="checkbox"][data-key]').forEach(cb => {
       const k = cb.dataset.key;
       cb.checked = !!savedChecks[k];
-      cb.addEventListener('change', ()=> {
+      cb.addEventListener('change', ()=>{
         savedChecks[cb.dataset.key] = cb.checked;
         setLS('pocket:checks', savedChecks);
       });
     });
-    clearChecks.addEventListener('click', ()=> {
+    clearChecks.addEventListener('click', ()=>{
       if(!confirm('Clear all saved checks for this device?')) return;
       document.querySelectorAll('input[type="checkbox"][data-key]').forEach(cb=>{cb.checked=false;});
       setLS('pocket:checks', {});
@@ -493,15 +665,338 @@
     function flashToast(msg='Saved'){
       const t = document.createElement('div');
       t.textContent = msg;
-      Object.assign(t.style,{position:'fixed',left:'50%',transform:'translateX(-50%)',bottom:'28px',padding:'10px 14px',background:'rgba(15,23,42,0.9)',color:'#fff',borderRadius:'10px',zIndex:9999,fontSize:'13px'});
+      Object.assign(t.style,{position:'fixed',left:'50%',transform:'translateX(-50%)',bottom:'28px',padding:'10px 14px',background:'rgba(15,23,42,0.9)',color:'#fff',borderRadius:'10px',zIndex:9999,fontSize:'13px',transition:'opacity .25s'});
       document.body.appendChild(t);
       setTimeout(()=> t.style.opacity='0',1200);
       setTimeout(()=> t.remove(),1700);
     }
 
-    // Accessibility: keyboard support for checkboxes & headers
+    // Accessibility: keyboard support for headers
     document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape'){ document.querySelectorAll('.content.open').forEach(c=>{ c.classList.remove('open'); c.setAttribute('aria-hidden','true'); }); setLS('pocket:expanded', {}); }
+      if(e.key === 'Escape'){
+        document.querySelectorAll('.content.open').forEach(c=>{ c.classList.remove('open'); c.setAttribute('aria-hidden','true'); });
+        setLS('pocket:expanded', {});
+      }
+    });
+
+    // ====== EXERCISE ALTERNATIVES (VARIANTS) ======
+    const variantKey = 'pocket:variant';
+    const savedVariant = getLS(variantKey, {}); // { [exerciseKey]: variantId }
+
+    // Catalog of alternatives per exercise slot
+    // Each option: {id, title, sets, category, blurb}
+    const VARIANTS = {
+      // Day 1
+      'd1-bench': [
+        {id:'barbell-bench', title:'Barbell Bench Press', sets:'4×6', category:'Push', blurb:'Mid chest, front delts, triceps • Pressing strength & size.'},
+        {id:'db-bench', title:'Dumbbell Bench Press', sets:'4×8', category:'Push', blurb:'Greater ROM & shoulder freedom; balanced strength.'},
+        {id:'machine-chest-press', title:'Machine Chest Press', sets:'4×8', category:'Push', blurb:'Stable path for safe effort; easy drop sets.'},
+        {id:'push-ups', title:'Push-Ups (Weighted/Assisted)', sets:'4×AMRAP', category:'Push', blurb:'Bodyweight push; scalable with plates/bands.'}
+      ],
+      'd1-pullups': [
+        {id:'pull-ups', title:'Pull-Ups', sets:'4×6–8', category:'Pull', blurb:'Lats/biceps; full ROM, chest to bar.'},
+        {id:'lat-pulldown', title:'Lat Pulldown', sets:'4×8–10', category:'Pull', blurb:'Controlled vertical pull; adjustable load.'},
+        {id:'assisted-pullup', title:'Assisted Pull-Up Machine', sets:'4×8–10', category:'Pull', blurb:'Same pattern with consistent support.'},
+        {id:'inverted-row', title:'Inverted Row (Smith/TRX)', sets:'4×8–12', category:'Pull', blurb:'Bodyweight horizontal pull; torso rigid.'}
+      ],
+      'd1-ohp': [
+        {id:'barbell-ohp', title:'Barbell Overhead Press', sets:'3×8', category:'Push', blurb:'Shoulders/triceps; standing bracing.'},
+        {id:'db-shoulder-press', title:'Dumbbell Shoulder Press (Seated)', sets:'3×8–10', category:'Push', blurb:'Shoulder-friendly path; reduce low-back load.'},
+        {id:'machine-shoulder-press', title:'Machine Shoulder Press', sets:'3×10', category:'Push', blurb:'Stable & higher reps for shape.'}
+      ],
+      'd1-row': [
+        {id:'barbell-row', title:'Barbell Row', sets:'3×8–10', category:'Pull', blurb:'Back thickness; strict torso angle.'},
+        {id:'seated-cable-row', title:'Seated Cable Row', sets:'3×10', category:'Pull', blurb:'Controlled horizontal pull.'},
+        {id:'cs-machine-row', title:'Chest-Supported Row (Machine)', sets:'3×10', category:'Pull', blurb:'Takes low-back out; focus on squeeze.'},
+        {id:'db-row', title:'1-Arm Dumbbell Row (Bench)', sets:'3×10/side', category:'Pull', blurb:'Unilateral; lat focus, core anti-rotation.'}
+      ],
+      'd1-latraise': [
+        {id:'db-lateral-raise', title:'Dumbbell Lateral Raises', sets:'2×12–15', category:'Accessory', blurb:'Side delts; light & strict range.'},
+        {id:'cable-lateral-raise', title:'Cable Lateral Raise', sets:'2×12–15', category:'Accessory', blurb:'Constant tension; single-arm or dual.'},
+        {id:'machine-lateral-raise', title:'Machine Lateral Raise', sets:'2×12–15', category:'Accessory', blurb:'Guided path; easy to control tempo.'}
+      ],
+      // Day 2
+      'd2-squat': [
+        {id:'back-squat', title:'Back Squat', sets:'4×6', category:'Legs', blurb:'Quads/glutes/core • foundation lift.'},
+        {id:'hack-squat', title:'Hack Squat (Machine)', sets:'4×8', category:'Legs', blurb:'Quad focus; back supported.'},
+        {id:'leg-press', title:'Leg Press', sets:'4×10', category:'Legs', blurb:'Stable; drive evenly through feet.'},
+        {id:'smith-squat', title:'Smith Machine Squat', sets:'4×8–10', category:'Legs', blurb:'Consistent path; stance to bias quads/glutes.'}
+      ],
+      'd2-rdl': [
+        {id:'barbell-rdl', title:'Romanian Deadlift', sets:'3×8', category:'Pull', blurb:'Hinge; hamstrings/glutes; bar close.'},
+        {id:'db-rdl', title:'Dumbbell RDL', sets:'3×10', category:'Pull', blurb:'Shoulder-friendly; same hinge pattern.'},
+        {id:'smith-rdl', title:'Smith Machine RDL', sets:'3×8–10', category:'Pull', blurb:'Stable path; focus on stretch.'}
+      ],
+      'd2-lunge': [
+        {id:'walking-lunge', title:'Walking Lunges', sets:'2×12/leg', category:'Legs', blurb:'Stride length sets quad vs glute bias.'},
+        {id:'bulgarian', title:'Bulgarian Split Squat', sets:'2×10/leg', category:'Legs', blurb:'Unilateral; big quad/glute stimulus.'},
+        {id:'reverse-lunge', title:'Reverse Lunges', sets:'2×12/leg', category:'Legs', blurb:'Knee-friendly; controlled steps back.'}
+      ],
+      'd2-hangleg': [
+        {id:'hanging-leg-raise', title:'Hanging Leg Raises', sets:'3×12–15', category:'Core', blurb:'Lower abs; control descent.'},
+        {id:'captains-chair', title:'Captain’s Chair Knee Raise', sets:'3×12–15', category:'Core', blurb:'Support for strict reps.'},
+        {id:'lying-leg-raise', title:'Lying Leg Raise', sets:'3×15', category:'Core', blurb:'Posterior pelvic tilt; no sway.'}
+      ],
+      'd2-sideplank': [
+        {id:'side-plank', title:'Side Plank', sets:'3×30–45s/side', category:'Core', blurb:'Obliques & posture.'},
+        {id:'copenhagen-plank', title:'Copenhagen Side Plank (light)', sets:'3×20–30s/side', category:'Core', blurb:'Adductors + obliques; knee-supported.'},
+        {id:'pallof-press', title:'Cable Pallof Press', sets:'3×10/side', category:'Core', blurb:'Anti-rotation; ribs down.'}
+      ],
+      // Day 3
+      'd3-incline': [
+        {id:'incline-db', title:'Incline Dumbbell Press', sets:'3×8–10', category:'Push', blurb:'Upper chest; shoulder-friendly.'},
+        {id:'incline-barbell', title:'Incline Barbell Press', sets:'3×6–8', category:'Push', blurb:'Heavier loading; controlled descent.'},
+        {id:'incline-machine', title:'Incline Chest Press (Machine)', sets:'3×10', category:'Push', blurb:'Stable & focused on pecs.'}
+      ],
+      'd3-row': [
+        {id:'seated-cable-row', title:'Seated Cable Row', sets:'3×10', category:'Pull', blurb:'Controlled horizontal pull.'},
+        {id:'cs-machine-row', title:'Chest-Supported Row (Machine)', sets:'3×10', category:'Pull', blurb:'Low-back friendly; squeeze.'},
+        {id:'db-row', title:'1-Arm Dumbbell Row', sets:'3×10/side', category:'Pull', blurb:'Unilateral lat focus.'}
+      ],
+      'd3-swing': [
+        {id:'kb-swing', title:'Kettlebell Swings', sets:'3×15', category:'Power', blurb:'Explosive hinge; snap hips.'},
+        {id:'db-swing', title:'Dumbbell Swings', sets:'3×15', category:'Power', blurb:'KB alternative; same pattern.'},
+        {id:'cable-pullthrough', title:'Cable Pull-Through', sets:'3×12–15', category:'Power', blurb:'Posterior chain; hinge pattern.'}
+      ],
+      // Day 4
+      'd4-incline': [
+        {id:'incline-barbell', title:'Incline Bench Press', sets:'3×8', category:'Push', blurb:'Upper chest focus.'},
+        {id:'incline-db', title:'Incline Dumbbell Press', sets:'3×10', category:'Push', blurb:'ROM & joint friendly.'},
+        {id:'incline-machine', title:'Incline Chest Press (Machine)', sets:'3×10', category:'Push', blurb:'Constant tension.'}
+      ],
+      'd4-pull': [
+        {id:'pull-ups', title:'Pull-Ups / Chin-Ups', sets:'3×8–10', category:'Pull', blurb:'Lats/biceps; full ROM.'},
+        {id:'lat-pulldown', title:'Lat Pulldown', sets:'3×10', category:'Pull', blurb:'Vertical pull; adjustable load.'},
+        {id:'assisted-pullup', title:'Assisted Pull-Up Machine', sets:'3×10', category:'Pull', blurb:'Same pattern with support.'}
+      ],
+      'd4-ohplight': [
+        {id:'seated-db-press', title:'Overhead Press (lighter)', sets:'3×10', category:'Push', blurb:'Shoulders/triceps; lighter load.'},
+        {id:'machine-shoulder-press', title:'Machine Shoulder Press', sets:'3×12', category:'Push', blurb:'High-rep shoulder shaping.'},
+        {id:'arnold-press', title:'Arnold Press (DB)', sets:'3×10', category:'Push', blurb:'Front/side delt emphasis.'}
+      ],
+      'd4-facepull': [
+        {id:'face-pull', title:'Face Pulls', sets:'3×12–15', category:'Pull', blurb:'Rear delts/rotator cuff.'},
+        {id:'reverse-pec-deck', title:'Reverse Pec Deck', sets:'3×12–15', category:'Pull', blurb:'Machine rear delt fly.'}
+      ],
+      'd4-biceps': [
+        {id:'db-curl', title:'Biceps Curls', sets:'2×12', category:'Accessory', blurb:'DB curls; strict form.'},
+        {id:'cable-curl', title:'Cable Curl (EZ/Bar)', sets:'2×12', category:'Accessory', blurb:'Constant tension.'},
+        {id:'preacher', title:'Preacher Curl (Machine/Bench)', sets:'2×10–12', category:'Accessory', blurb:'Locked-in elbow; peak focus.'}
+      ],
+      'd4-triceps': [
+        {id:'rope-pushdown', title:'Triceps Rope Pushdowns', sets:'2×12', category:'Accessory', blurb:'Elbows pinned; full extension.'},
+        {id:'bar-pushdown', title:'Straight-Bar Pushdown', sets:'2×12', category:'Accessory', blurb:'Heavier loading.'},
+        {id:'oh-cable-ext', title:'Overhead Cable Extension', sets:'2×12', category:'Accessory', blurb:'Long head stretch.'}
+      ],
+      // Day 5
+      'd5-front': [
+        {id:'front-squat', title:'Front Squat', sets:'3×8', category:'Legs', blurb:'Quads/core; upright torso.'},
+        {id:'goblet-squat', title:'Goblet Squat', sets:'3×10', category:'Legs', blurb:'DB/kettlebell; posture drill.'},
+        {id:'hack-squat', title:'Hack Squat (Machine)', sets:'3×10', category:'Legs', blurb:'Quad emphasis; guided path.'},
+        {id:'leg-press', title:'Leg Press (Quad Bias)', sets:'3×12', category:'Legs', blurb:'Feet low/narrow for quads.'}
+      ],
+      'd5-hip': [
+        {id:'barbell-hip-thrust', title:'Barbell Hip Thrust', sets:'3×8–10', category:'Legs', blurb:'Glute strength & shape.'},
+        {id:'smith-hip-thrust', title:'Smith Machine Hip Thrust', sets:'3×10', category:'Legs', blurb:'Stable path; easy setup.'},
+        {id:'glute-drive', title:'Glute Drive / Hip Thrust Machine', sets:'3×10', category:'Legs', blurb:'Machine-supported thrust.'}
+      ],
+      'd5-legcurl': [
+        {id:'lying-leg-curl', title:'Leg Curl (Lying)', sets:'3×10–12', category:'Pull', blurb:'Hamstring isolation.'},
+        {id:'seated-leg-curl', title:'Leg Curl (Seated)', sets:'3×10–12', category:'Pull', blurb:'Great lengthened tension.'},
+        {id:'nordic-assisted', title:'Nordic Curl (Assisted)', sets:'3×6–8', category:'Pull', blurb:'High tension; control descent.'}
+      ],
+      'd5-bulg': [
+        {id:'bulgarian', title:'Bulgarian Split Squat', sets:'2×12/leg', category:'Legs', blurb:'Single-leg quad/glute.'},
+        {id:'step-up', title:'Step-Ups (DB)', sets:'2×10/leg', category:'Legs', blurb:'Knee drive; control descent.'},
+        {id:'smith-split-squat', title:'Smith Split Squat', sets:'2×10/leg', category:'Legs', blurb:'Guided path; balance assist.'}
+      ]
+    };
+
+    // Attach variant button & menu; apply saved choice
+    document.querySelectorAll('.ex').forEach(ex=>{
+      const cb = ex.querySelector('input[data-key]');
+      if(!cb) return;
+      const key = cb.dataset.key;
+
+      // title/desc/meta references
+      const contentBox = ex.querySelector('div:nth-of-type(2)');
+      const titleEl = contentBox?.querySelector('strong');
+      const descEl  = contentBox?.querySelector('small');
+      const metaEl  = ex.querySelector('.meta');
+
+      // Only for slots with variants
+      const options = VARIANTS[key];
+      if(!options){ return; }
+
+      // Ensure a variant button exists (after the <strong>)
+      let vb = contentBox.querySelector('.variant-btn');
+      if(!vb){
+        vb = document.createElement('button');
+        vb.className = 'variant-btn';
+        vb.type = 'button';
+        vb.setAttribute('aria-label','Choose alternative exercise');
+        vb.textContent = '▼';
+        titleEl?.insertAdjacentElement('afterend', vb);
+      }
+
+      // Apply current selection (default = first)
+      const selId = savedVariant[key] || options[0].id;
+      const cur = options.find(o=>o.id===selId) || options[0];
+      applyVariant(cur);
+
+      // Menu interaction
+      vb.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        closeAllVariantMenus();
+        const menu = document.createElement('div');
+        menu.className = 'variant-menu';
+        const h = document.createElement('h4'); h.textContent = 'Choose alternative';
+        menu.appendChild(h);
+
+        options.forEach(o=>{
+          const b = document.createElement('button');
+          b.type='button'; b.className='variant-opt';
+          b.innerHTML = `
+            <div class="title">${o.title} <span class="sets">${o.sets}</span></div>
+            <div class="cat">${o.category}</div>
+          `;
+          const sub = document.createElement('small'); sub.textContent = o.blurb;
+          b.appendChild(sub);
+          b.addEventListener('click', ()=>{
+            savedVariant[key] = o.id; setLS(variantKey, savedVariant);
+            applyVariant(o);
+            flashToast('Exercise updated'); menu.remove();
+          });
+          menu.appendChild(b);
+        });
+
+        document.body.appendChild(menu);
+        const r = vb.getBoundingClientRect();
+        Object.assign(menu.style,{ left: (r.left+window.scrollX)+'px', top:(r.bottom+window.scrollY+6)+'px' });
+        requestAnimationFrame(()=> menu.classList.add('open'));
+      });
+
+      function applyVariant(o){
+        // Update title + sets tag (keep variant button after it)
+        if(titleEl){
+          titleEl.innerHTML = `${o.title} <span class="tag">${o.sets}</span>`;
+          titleEl.insertAdjacentElement('afterend', vb);
+        }
+        if(descEl){ descEl.textContent = o.blurb; }
+        if(metaEl){ metaEl.textContent = o.category; }
+        ex.setAttribute('data-ex', o.title);
+        ex.setAttribute('data-variant', o.id); // for timer preset scoping
+      }
+    });
+
+    function closeAllVariantMenus(){ document.querySelectorAll('.variant-menu').forEach(m=>m.remove()); }
+    document.addEventListener('click', closeAllVariantMenus);
+    document.addEventListener('scroll', closeAllVariantMenus, true);
+
+    // ========= REST TIMER (per-exercise, remembers presets; aware of variants) =========
+    const timersHost = document.querySelector('.running-timers');
+    const restKey = 'pocket:rest';
+    const savedRest = getLS(restKey, {}); // { "<exKey>::<variantId>": seconds }
+    const PRESETS = [30,60,90,120,180];
+
+    function suggestedSeconds(exRow){
+      const role = (exRow.querySelector('.meta')?.textContent || '').toLowerCase();
+      if(role.includes('accessory')) return 60;
+      if(role.includes('core')) return 60;
+      if(role.includes('power')) return 90;
+      if(role.includes('legs') || role.includes('push') || role.includes('pull')) return 120;
+      return 90;
+    }
+    function fmt(s){ const m=Math.floor(s/60), r=s%60; return `${m}:${String(r).padStart(2,'0')}`; }
+
+    function startTimer(label, seconds){
+      const pill = document.createElement('div');
+      pill.className = 'timer-pill';
+      const name = document.createElement('span'); name.className='name'; name.textContent = label;
+      const time = document.createElement('span'); time.className='time'; time.textContent = fmt(seconds);
+      const cancel = document.createElement('button'); cancel.setAttribute('aria-label','Cancel timer'); cancel.textContent = '✕';
+      pill.append(name, time, cancel); timersHost.appendChild(pill);
+
+      let t = seconds;
+      const iv = setInterval(()=>{
+        t--; time.textContent = fmt(t);
+        if(t<=0){
+          clearInterval(iv); pill.remove();
+          flashToast('Go!');
+          if(navigator.vibrate){ try{ navigator.vibrate([150,80,150]); }catch(_){ } }
+        }
+      },1000);
+
+      const cancelAll = ()=>{ clearInterval(iv); pill.remove(); flashToast('Timer canceled'); };
+      cancel.addEventListener('click', (e)=>{ e.stopPropagation(); cancelAll(); });
+      pill.addEventListener('click', (e)=>{ if(e.target!==cancel) cancelAll(); });
+    }
+
+    // add buttons under each checkbox (only once)
+    document.querySelectorAll('.ex').forEach(ex=>{
+      const cb = ex.querySelector('input[type="checkbox"][data-key]');
+      if(!cb) return;
+      const key = cb.dataset.key;
+      const left = ex.querySelector('.left');
+      if(!left) return;
+
+      // Prevent duplicates if rerun
+      if(left.querySelector('.timer-btn')) return;
+
+      const tBtn = document.createElement('button');
+      tBtn.type='button'; tBtn.className='timer-btn'; tBtn.setAttribute('aria-label','Start rest timer'); tBtn.textContent='⏱';
+      const pBtn = document.createElement('button');
+      pBtn.type='button'; pBtn.className='preset-btn'; pBtn.setAttribute('aria-label','Timer presets'); pBtn.textContent='⋯';
+      left.appendChild(tBtn); left.appendChild(pBtn);
+
+      const variantId = ()=> ex.dataset.variant || 'default';
+      const restMapKey = ()=> `${key}::${variantId()}`;
+      const label = ()=> (ex.getAttribute('data-ex') || ex.querySelector('strong')?.textContent || 'Exercise').trim().replace(/\s*\(.+?\)/,'');
+
+      // Quick start
+      tBtn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const custom = savedRest[restMapKey()];
+        const secs = Number(custom ?? suggestedSeconds(ex));
+        startTimer(label().slice(0,36), secs);
+      });
+
+      // Presets menu
+      pBtn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        document.querySelectorAll('.rt-menu').forEach(m=>m.remove());
+        const menu = document.createElement('div');
+        menu.className='rt-menu';
+        const title=document.createElement('h4'); title.textContent='Rest presets'; menu.appendChild(title);
+        const row=document.createElement('div'); row.className='rt-row'; menu.appendChild(row);
+
+        PRESETS.forEach(s=>{
+          const chip=document.createElement('button'); chip.type='button'; chip.className='rt-chip';
+          if(savedRest[restMapKey()]==s) chip.classList.add('active');
+          chip.textContent = s + 's';
+          chip.addEventListener('click', ()=>{
+            savedRest[restMapKey()] = s; setLS(restKey, savedRest);
+            startTimer(label().slice(0,36), s); flashToast(`Preset set: ${s}s`);
+            menu.remove();
+          });
+          row.appendChild(chip);
+        });
+
+        const revert=document.createElement('button'); revert.type='button'; revert.className='rt-chip'; revert.textContent='Revert to suggested';
+        revert.addEventListener('click', ()=>{
+          delete savedRest[restMapKey()]; setLS(restKey, savedRest);
+          flashToast('Using suggested time'); menu.remove();
+        });
+        const row2=document.createElement('div'); row2.className='rt-row'; row2.appendChild(revert); menu.appendChild(row2);
+
+        document.body.appendChild(menu);
+        const r=pBtn.getBoundingClientRect();
+        Object.assign(menu.style,{ left:(r.left+window.scrollX-10)+'px', top:(r.bottom+window.scrollY+6)+'px' });
+        requestAnimationFrame(()=> menu.classList.add('open'));
+
+        const close=()=> menu?.remove();
+        setTimeout(()=>{ document.addEventListener('click', close, { once:true }); },0);
+      });
     });
 
   })();
