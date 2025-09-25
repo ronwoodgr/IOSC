@@ -21,18 +21,27 @@
     --radius:12px;
     --pad:14px;
   }
-  html,body{height:100%;background:linear-gradient(180deg,#f6fbff, #fbfcfe);margin:0;color:#0f172a;}
+  html,body{height:100%;background:linear-gradient(180deg,#f6fbff,#fbfcfe);margin:0;color:#0f172a;}
   .app{max-width:980px;margin:12px auto;padding:12px;}
   header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px}
   h1{font-size:20px;margin:0;color:var(--accent)}
   p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
-  .goals{background:var(--card);border-radius:var(--radius);padding:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06);display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
-  .goal-btn{padding:8px 10px;border-radius:10px;border:1px solid #e6eef9;background:transparent;color:var(--muted);font-size:13px;display:inline-flex;gap:8px;align-items:center;cursor:pointer;transition:all .15s;}
-  .goal-btn.active{background:linear-gradient(90deg,var(--accent)10%, #2b8bdc);color:white;border-color:transparent;box-shadow:0 6px 18px rgba(17,103,177,0.12)}
+  .goals{
+    background:var(--card);border-radius:var(--radius);padding:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06);
+    display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  }
+  .goal-btn{
+    padding:8px 10px;border-radius:10px;border:1px solid #e6eef9;background:transparent;color:var(--muted);
+    font-size:13px;display:inline-flex;gap:8px;align-items:center;cursor:pointer;transition:all .15s;
+  }
+  .goal-btn.active{background:linear-gradient(90deg,var(--accent)10%,#2b8bdc);color:white;border-color:transparent;box-shadow:0 6px 18px rgba(17,103,177,0.12)}
   .controls{display:flex;gap:8px;align-items:center}
   button.icon{border:0;background:var(--card);padding:8px;border-radius:10px;box-shadow:0 6px 18px rgba(15,23,42,0.04);cursor:pointer}
+
   main{margin-top:12px;display:grid;grid-template-columns:1fr;gap:12px}
-  .day{background:var(--card);border-radius:14px;padding:12px;box-shadow:0 10px 30px rgba(10,20,40,0.04);overflow:hidden;}
+  .day{
+    background:var(--card);border-radius:14px;padding:12px;box-shadow:0 10px 30px rgba(10,20,40,0.04);overflow:hidden;
+  }
   .day-header{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
   .day-title{display:flex;gap:12px;align-items:center}
   .day-title h2{margin:0;font-size:16px}
@@ -41,13 +50,24 @@
   .badge.push{background:#fff7ed;color:var(--accent-3);border-color:rgba(245,158,11,0.06)}
   .badge.pull{background:#f0fdf4;color:var(--success);color:#115e44;border-color:rgba(5,150,105,0.06)}
   .badge.core{background:#f0f9ff;color:var(--accent-2);border-color:rgba(14,165,160,0.06)}
+
   .exercise-list{margin-top:10px;display:grid;gap:8px}
-  .ex{display:flex;gap:10px;padding:10px;border-radius:12px;align-items:flex-start;background:linear-gradient(180deg, rgba(250,252,255,1), var(--glass));border:1px solid rgba(10,20,40,0.03)}
-  .ex .left{width:34px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px}
-  .ex strong{display:block;font-size:14px}
+  .ex{
+    display:flex;gap:10px;padding:10px;border-radius:12px;align-items:flex-start;background:linear-gradient(180deg,rgba(250,252,255,1),var(--glass));
+    border:1px solid rgba(10,20,40,0.03)
+  }
+  .ex .left{
+    width:34px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px
+  }
+  .ex .mid{display:flex;align-items:center;gap:8px;margin-top:2px;}
+  .ex .content{flex:1}
+
+  .ex strong{display:inline;font-size:14px}
+  .ex a.ex-link{font-size:14px;text-decoration:none;color:inherit;border-bottom:1px dashed rgba(15,23,42,0.2)}
+  .ex a.ex-link:active{opacity:.7}
   .ex small{color:var(--muted);display:block;margin-top:4px;font-size:12px}
   .ex .meta{margin-left:auto;text-align:right;font-size:13px;color:var(--muted)}
-  .tag{display:inline-block;padding:4px 8px;border-radius:8px;font-size:11px;margin-right:6px;background:rgba(15,23,42,0.04)}
+  .tag{display:inline-block;padding:4px 8px;border-radius:8px;font-size:11px;margin-left:6px;background:rgba(15,23,42,0.04)}
   .notes{margin-top:6px;color:var(--muted);font-size:12px}
   .finisher{margin-top:8px;padding:10px;border-radius:10px;background:linear-gradient(90deg,#fff,#fbfbff);border:1px dashed rgba(15,23,42,0.04)}
   input[type="checkbox"]{width:20px;height:20px}
@@ -55,19 +75,27 @@
   footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
   .controls .btn{padding:8px 12px;border-radius:10px;border:0;background:var(--accent);color:white;font-size:14px;cursor:pointer}
   .muted{color:var(--muted)}
-  button, .goal-btn{touch-action:manipulation}
-  .content{max-height:0;overflow:hidden;transition:max-height .28s ease}
-  .content.open{max-height:1000px;padding-top:12px}
-  .check-row{display:flex;gap:6px;align-items:center}
+  button,.goal-btn{touch-action:manipulation}
+  .day-panel{max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .day-panel.open{max-height:1000px;padding-top:12px}
   @media (min-width:720px){main{grid-template-columns:1fr}}
-  @media print{body{background:white}.controls, header, footer{display:none}.day{page-break-inside:avoid;box-shadow:none;border:1px solid #ddd}}
+  @media print{body{background:white}.controls,header,footer{display:none}.day{page-break-inside:avoid;box-shadow:none;border:1px solid #ddd}}
 
   /* Variant (alternatives) UI */
-  .variant-btn{display:inline-flex;align-items:center;justify-content:center;margin-left:6px;border:1px solid #e6eef9;background:#fff;border-radius:6px;padding:0 6px;height:20px;cursor:pointer;font-size:12px;line-height:1;vertical-align:middle;box-shadow:0 3px 10px rgba(15,23,42,0.04)}
-  .variant-menu{position:absolute;z-index:60;background:var(--card);border:1px solid rgba(15,23,42,0.08);border-radius:10px;padding:8px;box-shadow:0 20px 40px rgba(15,23,42,0.15);display:none;min-width:220px;max-width:280px}
+  .variant-btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid #e6eef9;background:#fff;border-radius:6px;padding:0 6px;height:20px;cursor:pointer;
+    font-size:12px;line-height:1;vertical-align:middle;box-shadow:0 3px 10px rgba(15,23,42,0.04)
+  }
+  .variant-menu{
+    position:absolute;z-index:60;background:var(--card);border:1px solid rgba(15,23,42,0.08);border-radius:10px;padding:8px;
+    box-shadow:0 20px 40px rgba(15,23,42,0.15);display:none;min-width:220px;max-width:280px
+  }
   .variant-menu.open{display:block}
   .variant-menu h4{margin:4px 6px 8px;font-size:12px;color:var(--muted)}
-  .variant-opt{display:flex;align-items:flex-start;gap:8px;width:100%;border:0;background:transparent;padding:8px;border-radius:8px;cursor:pointer;text-align:left}
+  .variant-opt{
+    display:flex;align-items:flex-start;gap:8px;width:100%;border:0;background:transparent;padding:8px;border-radius:8px;cursor:pointer;text-align:left
+  }
   .variant-opt:hover{background:rgba(15,23,42,0.04)}
   .variant-opt .title{font-size:13px}
   .variant-opt .sets{font-size:11px;padding:2px 6px;border-radius:999px;background:rgba(15,23,42,0.06)}
@@ -75,7 +103,7 @@
   .variant-opt .cat{margin-left:auto;font-size:11px;color:var(--muted)}
 
   /* Rest Timer UI */
-  .timer-btn, .preset-btn{border:1px solid #e6eef9;background:#fff;border-radius:8px;padding:4px 6px;font-size:11px;cursor:pointer;box-shadow:0 3px 10px rgba(15,23,42,0.04)}
+  .timer-btn,.preset-btn{border:1px solid #e6eef9;background:#fff;border-radius:8px;padding:4px 6px;font-size:11px;cursor:pointer;box-shadow:0 3px 10px rgba(15,23,42,0.04)}
   .timer-btn{display:inline-flex;align-items:center;gap:4px}
   .timer-btn:active{transform:scale(.98)}
   .preset-btn{font-size:10px;opacity:.8}
@@ -121,10 +149,6 @@
     <article class="day" id="day-1">
       <div class="day-header" data-day="1" tabindex="0">
         <div class="day-title">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="flex:0 0 40px">
-            <rect x="2" y="2" width="20" height="20" rx="6" fill="#eef9ff"></rect>
-            <path d="M7 13h10M7 9h6" stroke="#1167b1" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
           <div>
             <h2>Day 1 — Upper (Strength + Size)</h2>
             <div class="small muted">Push & Pull balanced • emphasis on chest, back, shoulders</div>
@@ -136,18 +160,17 @@
           <span class="badge core">Core</span>
         </div>
       </div>
-
-      <section class="content" aria-hidden="true">
+      <section class="day-panel" aria-hidden="true">
         <div class="exercise-list">
           <div class="ex" data-ex="Barbell Bench Press">
             <div class="left">
               <input type="checkbox" data-key="d1-bench">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Barbell Bench Press <span class="tag">4×6</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Barbell Bench Press <span class="tag">4×6</span></strong></a>
               <small>Targets: Mid chest (pectoralis major), front delts, triceps • Push compound for pressing strength & size.</small>
               <div class="notes small">Tip: tuck elbows ~45°, drive feet, press in an arc. Controlled descent, explosive up.</div>
             </div>
@@ -157,12 +180,12 @@
           <div class="ex" data-ex="Pull-Ups">
             <div class="left">
               <input type="checkbox" data-key="d1-pullups">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Pull-Ups / Lat Pulldown <span class="tag">4×6–8</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Pull-Ups / Lat Pulldown <span class="tag">4×6–8</span></strong></a>
               <small>Targets: Lats (width), biceps, rear delts • Vertical pulling motion for back width.</small>
               <div class="notes small">Tip: full range of motion, chest to bar. Use assistance if needed; add weight when strong.</div>
             </div>
@@ -172,12 +195,12 @@
           <div class="ex" data-ex="Overhead Press">
             <div class="left">
               <input type="checkbox" data-key="d1-ohp">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Overhead Press (Barbell/Dumbbell) <span class="tag">3×8</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Overhead Press (Barbell/Dumbbell) <span class="tag">3×8</span></strong></a>
               <small>Targets: Shoulders (front + side delts), triceps • Standing press builds upper-body pressing power and core stability.</small>
               <div class="notes small">Tip: braced core, slightly overhead bar path, avoid excessive lumbar arch.</div>
             </div>
@@ -187,12 +210,12 @@
           <div class="ex" data-ex="Barbell Row">
             <div class="left">
               <input type="checkbox" data-key="d1-row">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Barbell Row <span class="tag">3×8–10</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Barbell Row <span class="tag">3×8–10</span></strong></a>
               <small>Targets: Back thickness (lats, rhomboids, traps), rear delts, biceps • Horizontal pull to balance pressing.</small>
               <div class="notes small">Tip: chest up, hips back; pull bar to low chest. Use strict form to protect lower back.</div>
             </div>
@@ -202,12 +225,12 @@
           <div class="ex" data-ex="Lateral Raises">
             <div class="left">
               <input type="checkbox" data-key="d1-latraise">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Dumbbell Lateral Raises <span class="tag">2×12–15</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Dumbbell Lateral Raises <span class="tag">2×12–15</span></strong></a>
               <small>Targets: Side delts • Isolation for shoulder cap and width.</small>
               <div class="notes small">Tip: light weight, lead with elbow, small range for side delt focus.</div>
             </div>
@@ -225,10 +248,6 @@
     <article class="day" id="day-2">
       <div class="day-header" data-day="2" tabindex="0">
         <div class="day-title">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="2" width="20" height="20" rx="6" fill="#f3fffb"></rect>
-            <path d="M7 8v8M12 6v12M17 10v4" stroke="#059669" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
           <div>
             <h2>Day 2 — Lower (Strength + Core)</h2>
             <div class="small muted">Quads, glutes, hamstrings • posture and core emphasis</div>
@@ -240,17 +259,17 @@
         </div>
       </div>
 
-      <section class="content" aria-hidden="true">
+      <section class="day-panel" aria-hidden="true">
         <div class="exercise-list">
           <div class="ex">
             <div class="left">
               <input type="checkbox" data-key="d2-squat">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Back Squat <span class="tag">4×6</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Back Squat <span class="tag">4×6</span></strong></a>
               <small>Targets: Quads, glutes, core • Foundation for lower-body strength.</small>
               <div class="notes small">Tip: neutral spine, knees tracking toes. Depth as mobility allows. Drive through heels.</div>
             </div>
@@ -260,12 +279,12 @@
           <div class="ex">
             <div class="left">
               <input type="checkbox" data-key="d2-rdl">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Romanian Deadlift <span class="tag">3×8</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Romanian Deadlift <span class="tag">3×8</span></strong></a>
               <small>Targets: Hamstrings, glutes, lower back (erector spinae) • Posterior chain strength.</small>
               <div class="notes small">Tip: hinge at hips, slight knee bend, keep bar close to legs.</div>
             </div>
@@ -275,12 +294,12 @@
           <div class="ex">
             <div class="left">
               <input type="checkbox" data-key="d2-lunge">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Walking Lunges <span class="tag">2×12/leg</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Walking Lunges <span class="tag">2×12/leg</span></strong></a>
               <small>Targets: Quads, glutes, single-leg stability.</small>
               <div class="notes small">Tip: long stride for glute focus; short stride for quad focus.</div>
             </div>
@@ -290,14 +309,13 @@
           <div class="ex">
             <div class="left">
               <input type="checkbox" data-key="d2-hangleg">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Hanging Leg Raises <span class="tag">3×12–15</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Hanging Leg Raises <span class="tag">3×12–15</span></strong></a>
               <small>Targets: Lower abs, hip flexors • Great for core and midsection definition.</small>
-              <div class="notes small">Tip: control the descent; tuck knees first if straight legs too hard.</div>
             </div>
             <div class="meta">Core</div>
           </div>
@@ -305,14 +323,13 @@
           <div class="ex">
             <div class="left">
               <input type="checkbox" data-key="d2-sideplank">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Side Plank <span class="tag">3×30–45s/side</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Side Plank <span class="tag">3×30–45s/side</span></strong></a>
               <small>Targets: Obliques, transverse abdominis • Anti-rotation & posture support.</small>
-              <div class="notes small">Tip: hips high, ribs tucked. Great for desk posture and oblique development.</div>
             </div>
             <div class="meta">Core</div>
           </div>
@@ -324,10 +341,6 @@
     <article class="day" id="day-3">
       <div class="day-header" data-day="3" tabindex="0">
         <div class="day-title">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="2" width="20" height="20" rx="6" fill="#fff7ed"></rect>
-            <path d="M8 15h8M8 11h8M8 7h8" stroke="#f59e0b" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
           <div>
             <h2>Day 3 — Hybrid Conditioning (Push + Pull + Cardio)</h2>
             <div class="small muted">Mix of strength & cardio • whole-body conditioning</div>
@@ -339,17 +352,17 @@
         </div>
       </div>
 
-      <section class="content" aria-hidden="true">
+      <section class="day-panel" aria-hidden="true">
         <div class="exercise-list">
           <div class="ex">
             <div class="left">
               <input type="checkbox" data-key="d3-incline">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Incline Dumbbell Press <span class="tag">3×8–10</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Incline Dumbbell Press <span class="tag">3×8–10</span></strong></a>
               <small>Targets: Upper chest, front delts • Great for chest shaping and upper pec development.</small>
             </div>
             <div class="meta">Push</div>
@@ -358,12 +371,12 @@
           <div class="ex">
             <div class="left">
               <input type="checkbox" data-key="d3-row">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Seated Cable Row <span class="tag">3×10</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Seated Cable Row <span class="tag">3×10</span></strong></a>
               <small>Targets: Mid back, rear delts, biceps • Controlled horizontal pulling.</small>
             </div>
             <div class="meta">Pull</div>
@@ -372,12 +385,12 @@
           <div class="ex">
             <div class="left">
               <input type="checkbox" data-key="d3-swing">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div>
-              <strong>Kettlebell Swings <span class="tag">3×15</span></strong>
-              <button class="variant-btn" aria-label="Choose alternative">▼</button>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Kettlebell Swings <span class="tag">3×15</span></strong></a>
               <small>Targets: Glutes, hamstrings, lower back • Explosive hip hinge for power + conditioning.</small>
             </div>
             <div class="meta">Power</div>
@@ -395,10 +408,6 @@
     <article class="day" id="day-4">
       <div class="day-header" data-day="4" tabindex="0">
         <div class="day-title">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="2" width="20" height="20" rx="6" fill="#fff3f3"></rect>
-            <path d="M9 12h6M9 8h6M9 16h6" stroke="#ef4444" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
           <div>
             <h2>Day 4 — Upper (Definition & Accessories)</h2>
             <div class="small muted">Accessory emphasis: shape, rear delts, traps, arms</div>
@@ -410,61 +419,91 @@
         </div>
       </div>
 
-      <section class="content" aria-hidden="true">
+      <section class="day-panel" aria-hidden="true">
         <div class="exercise-list">
-          <div class="ex"><div class="left">
+          <div class="ex">
+            <div class="left">
               <input type="checkbox" data-key="d4-incline">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div><strong>Incline Bench Press <span class="tag">3×8</span></strong>
-            <button class="variant-btn" aria-label="Choose alternative">▼</button>
-            <small>Targets: Upper chest • Focused shaping.</small></div><div class="meta">Push</div></div>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Incline Bench Press <span class="tag">3×8</span></strong></a>
+              <small>Targets: Upper chest • Focused shaping.</small>
+            </div>
+            <div class="meta">Push</div>
+          </div>
 
-          <div class="ex"><div class="left">
+          <div class="ex">
+            <div class="left">
               <input type="checkbox" data-key="d4-pull">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div><strong>Pull-ups / Lat Pulldown <span class="tag">3×8–10</span></strong>
-            <button class="variant-btn" aria-label="Choose alternative">▼</button>
-            <small>Targets: Width & lats, great for balanced back development.</small></div><div class="meta">Pull</div></div>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Pull-ups / Lat Pulldown <span class="tag">3×8–10</span></strong></a>
+              <small>Targets: Width & lats, great for balanced back development.</small>
+            </div>
+            <div class="meta">Pull</div>
+          </div>
 
-          <div class="ex"><div class="left">
+          <div class="ex">
+            <div class="left">
               <input type="checkbox" data-key="d4-ohplight">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div><strong>Overhead Press (lighter) <span class="tag">3×10</span></strong>
-            <button class="variant-btn" aria-label="Choose alternative">▼</button>
-            <small>Targets: Shoulders & triceps • Higher rep variation to add shape.</small></div><div class="meta">Push</div></div>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Overhead Press (lighter) <span class="tag">3×10</span></strong></a>
+              <small>Targets: Shoulders & triceps • Higher rep variation to add shape.</small>
+            </div>
+            <div class="meta">Push</div>
+          </div>
 
-          <div class="ex"><div class="left">
+          <div class="ex">
+            <div class="left">
               <input type="checkbox" data-key="d4-facepull">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div><strong>Face Pulls <span class="tag">3×12–15</span></strong>
-            <button class="variant-btn" aria-label="Choose alternative">▼</button>
-            <small>Targets: Rear delts, rotator cuff, traps • Key for posture and rounded shoulder look.</small></div><div class="meta">Pull</div></div>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Face Pulls <span class="tag">3×12–15</span></strong></a>
+              <small>Targets: Rear delts, rotator cuff, traps • Key for posture and rounded shoulder look.</small>
+            </div>
+            <div class="meta">Pull</div>
+          </div>
 
-          <div class="ex"><div class="left">
+          <div class="ex">
+            <div class="left">
               <input type="checkbox" data-key="d4-biceps">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div><strong>Biceps Curls <span class="tag">2×12</span></strong>
-            <button class="variant-btn" aria-label="Choose alternative">▼</button>
-            <small>Targets: Biceps • Definition and arm shaping.</small></div><div class="meta">Accessory</div></div>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Biceps Curls <span class="tag">2×12</span></strong></a>
+              <small>Targets: Biceps • Definition and arm shaping.</small>
+            </div>
+            <div class="meta">Accessory</div>
+          </div>
 
-          <div class="ex"><div class="left">
+          <div class="ex">
+            <div class="left">
               <input type="checkbox" data-key="d4-triceps">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div><strong>Triceps Rope Pushdowns <span class="tag">2×12</span></strong>
-            <button class="variant-btn" aria-label="Choose alternative">▼</button>
-            <small>Targets: Triceps • Helps pressing performance and arm definition.</small></div><div class="meta">Accessory</div></div>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Triceps Rope Pushdowns <span class="tag">2×12</span></strong></a>
+              <small>Targets: Triceps • Helps pressing performance and arm definition.</small>
+            </div>
+            <div class="meta">Accessory</div>
+          </div>
         </div>
       </section>
     </article>
@@ -473,10 +512,6 @@
     <article class="day" id="day-5">
       <div class="day-header" data-day="5" tabindex="0">
         <div class="day-title">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="2" width="20" height="20" rx="6" fill="#fffaf0"></rect>
-            <path d="M8 12h8M8 8h8" stroke="#f59e0b" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
           <div>
             <h2>Day 5 — Lower + Core (Glutes, Hams, Stability)</h2>
             <div class="small muted">Lower-body shaping + core finisher</div>
@@ -488,43 +523,63 @@
         </div>
       </div>
 
-      <section class="content" aria-hidden="true">
+      <section class="day-panel" aria-hidden="true">
         <div class="exercise-list">
-          <div class="ex"><div class="left">
+          <div class="ex">
+            <div class="left">
               <input type="checkbox" data-key="d5-front">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div><strong>Front Squat / Goblet Squat <span class="tag">3×8–10</span></strong>
-            <button class="variant-btn" aria-label="Choose alternative">▼</button>
-            <small>Targets: Quads, core • Front-loading increases core demand & leg shape.</small></div><div class="meta">Legs</div></div>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Front Squat / Goblet Squat <span class="tag">3×8–10</span></strong></a>
+              <small>Targets: Quads, core • Front-loading increases core demand & leg shape.</small>
+            </div>
+            <div class="meta">Legs</div>
+          </div>
 
-          <div class="ex"><div class="left">
+          <div class="ex">
+            <div class="left">
               <input type="checkbox" data-key="d5-hip">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div><strong>Barbell Hip Thrust <span class="tag">3×8–10</span></strong>
-            <button class="variant-btn" aria-label="Choose alternative">▼</button>
-            <small>Targets: Glutes • Primary shaping movement for posterior chain.</small></div><div class="meta">Legs</div></div>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Barbell Hip Thrust <span class="tag">3×8–10</span></strong></a>
+              <small>Targets: Glutes • Primary shaping movement for posterior chain.</small>
+            </div>
+            <div class="meta">Legs</div>
+          </div>
 
-          <div class="ex"><div class="left">
+          <div class="ex">
+            <div class="left">
               <input type="checkbox" data-key="d5-legcurl">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div><strong>Leg Curl <span class="tag">3×10–12</span></strong>
-            <button class="variant-btn" aria-label="Choose alternative">▼</button>
-            <small>Targets: Hamstrings • Isolation to balance quad work.</small></div><div class="meta">Pull</div></div>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Leg Curl <span class="tag">3×10–12</span></strong></a>
+              <small>Targets: Hamstrings • Isolation to balance quad work.</small>
+            </div>
+            <div class="meta">Pull</div>
+          </div>
 
-          <div class="ex"><div class="left">
+          <div class="ex">
+            <div class="left">
               <input type="checkbox" data-key="d5-bulg">
-              <button class="timer-btn" data-timer role="button" aria-label="Start rest timer">⏱</button>
-              <button class="preset-btn" data-preset role="button" aria-label="Timer preset">⋯</button>
+              <button class="timer-btn" data-timer aria-label="Start rest timer">⏱</button>
+              <button class="preset-btn" data-preset aria-label="Timer preset">⋯</button>
             </div>
-            <div><strong>Bulgarian Split Squat <span class="tag">2×12/leg</span></strong>
-            <button class="variant-btn" aria-label="Choose alternative">▼</button>
-            <small>Targets: Quads, glutes, single-leg stability.</small></div><div class="meta">Legs</div></div>
+            <div class="mid"><button class="variant-btn" aria-label="Choose alternative">▼</button></div>
+            <div class="content">
+              <a href="#" class="ex-link"><strong>Bulgarian Split Squat <span class="tag">2×12/leg</span></strong></a>
+              <small>Targets: Quads, glutes, single-leg stability.</small>
+            </div>
+            <div class="meta">Legs</div>
+          </div>
         </div>
 
         <div class="finisher">
@@ -553,15 +608,15 @@
   const savedExpanded = getLS('pocket:expanded', {});
   document.querySelectorAll('.day').forEach(day=>{
     const header = day.querySelector('.day-header');
-    const content = day.querySelector('.content');
+    const content = day.querySelector('.day-panel');
     const id = day.id;
     if(savedExpanded[id]) content.classList.add('open'), content.setAttribute('aria-hidden','false');
     header.addEventListener('click', ()=>toggle(id,content));
     header.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(id,content);} });
   });
   function toggle(id,content){ const open=content.classList.toggle('open'); content.setAttribute('aria-hidden', String(!open)); savedExpanded[id]=open; setLS('pocket:expanded', savedExpanded); }
-  document.getElementById('expandAll').addEventListener('click', ()=>{ document.querySelectorAll('.content').forEach(c=>{c.classList.add('open'); c.setAttribute('aria-hidden','false');}); setLS('pocket:expanded', Object.fromEntries(Array.from(document.querySelectorAll('.day')).map(d=>[d.id,true])));});
-  document.getElementById('collapseAll').addEventListener('click', ()=>{ document.querySelectorAll('.content').forEach(c=>{c.classList.remove('open'); c.setAttribute('aria-hidden','true');}); setLS('pocket:expanded', {});});
+  document.getElementById('expandAll').addEventListener('click', ()=>{ document.querySelectorAll('.day-panel').forEach(c=>{c.classList.add('open'); c.setAttribute('aria-hidden','false');}); setLS('pocket:expanded', Object.fromEntries(Array.from(document.querySelectorAll('.day')).map(d=>[d.id,true])));});
+  document.getElementById('collapseAll').addEventListener('click', ()=>{ document.querySelectorAll('.day-panel').forEach(c=>{c.classList.remove('open'); c.setAttribute('aria-hidden','true');}); setLS('pocket:expanded', {});});
   document.getElementById('clearChecks').addEventListener('click', ()=>{ if(!confirm('Clear all saved checks for this device?')) return; document.querySelectorAll('input[type="checkbox"][data-key]').forEach(cb=>cb.checked=false); setLS('pocket:checks', {}); });
   const savedGoals = getLS('pocket:goals', {});
   document.querySelectorAll('.goal-btn').forEach(btn=>{ const key=btn.dataset.goal; if(savedGoals[key]) btn.classList.add('active'); btn.addEventListener('click', ()=>{ const on=btn.classList.toggle('active'); savedGoals[key]=on; setLS('pocket:goals', savedGoals); flashToast(on?`Goal saved: ${key}`:`Goal removed: ${key}`); });});
@@ -695,55 +750,194 @@
     ]
   };
 
-  // Add ▼ menus and apply saved variant
+  // ===== External link resolver (MuscleWiki primary; ExRx fallback via site search) =====
+  // Map some common movements to stable MuscleWiki slugs. For everything else, fall back to site search.
+  const MW_MAP = {
+    'Barbell Bench Press':'https://musclewiki.com/exercises/chest/barbell/bench-press',
+    'Dumbbell Bench Press':'https://musclewiki.com/exercises/chest/dumbbell/dumbbell-bench-press',
+    'Machine Chest Press':'https://musclewiki.com/exercises/chest/machine/machine-chest-press',
+    'Push-Ups (Weighted/Assisted)':'https://musclewiki.com/exercises/chest/bodyweight/push-up',
+    'Pull-Ups':'https://musclewiki.com/exercises/back/bodyweight/pull-up',
+    'Lat Pulldown':'https://musclewiki.com/exercises/back/machine/lat-pulldown',
+    'Assisted Pull-Up Machine':'https://musclewiki.com/exercises/back/machine/assisted-pull-up',
+    'Inverted Row (Smith/TRX)':'https://musclewiki.com/exercises/back/bodyweight/inverted-row',
+    'Barbell Overhead Press':'https://musclewiki.com/exercises/shoulders/barbell/overhead-press',
+    'Dumbbell Shoulder Press (Seated)':'https://musclewiki.com/exercises/shoulders/dumbbell/dumbbell-shoulder-press',
+    'Machine Shoulder Press':'https://musclewiki.com/exercises/shoulders/machine/shoulder-press',
+    'Barbell Row':'https://musclewiki.com/exercises/back/barbell/barbell-row',
+    'Seated Cable Row':'https://musclewiki.com/exercises/back/cables/seated-cable-row',
+    'Chest-Supported Row (Machine)':'https://musclewiki.com/exercises/back/machine/chest-supported-row',
+    '1-Arm Dumbbell Row (Bench)':'https://musclewiki.com/exercises/back/dumbbell/one-arm-dumbbell-row',
+    'Dumbbell Lateral Raises':'https://musclewiki.com/exercises/shoulders/dumbbell/lateral-raise',
+    'Cable Lateral Raise':'https://musclewiki.com/exercises/shoulders/cables/cable-lateral-raise',
+    'Machine Lateral Raise':'https://musclewiki.com/exercises/shoulders/machine/lateral-raise',
+    'Back Squat':'https://musclewiki.com/exercises/quadriceps/barbell/back-squat',
+    'Hack Squat (Machine)':'https://musclewiki.com/exercises/quadriceps/machine/hack-squat',
+    'Leg Press':'https://musclewiki.com/exercises/quadriceps/machine/leg-press',
+    'Smith Machine Squat':'https://musclewiki.com/exercises/quadriceps/machine/smith-machine-squat',
+    'Romanian Deadlift':'https://musclewiki.com/exercises/hamstrings/barbell/romanian-deadlift',
+    'Dumbbell RDL':'https://musclewiki.com/exercises/hamstrings/dumbbell/dumbbell-rdl',
+    'Smith Machine RDL':'https://musclewiki.com/exercises/hamstrings/machine/smith-machine-rdl',
+    'Walking Lunges':'https://musclewiki.com/exercises/glutes/dumbbell/walking-lunge',
+    'Bulgarian Split Squat':'https://musclewiki.com/exercises/quadriceps/dumbbell/bulgarian-split-squat',
+    'Reverse Lunges':'https://musclewiki.com/exercises/quadriceps/dumbbell/reverse-lunge',
+    'Hanging Leg Raises':'https://musclewiki.com/exercises/abdominals/bodyweight/hanging-leg-raise',
+    'Captain’s Chair Knee Raise':'https://musclewiki.com/exercises/abdominals/machine/captains-chair-knee-raise',
+    'Lying Leg Raise':'https://musclewiki.com/exercises/abdominals/bodyweight/lying-leg-raise',
+    'Side Plank':'https://musclewiki.com/exercises/obliques/bodyweight/side-plank',
+    'Copenhagen Side Plank (light)':'https://musclewiki.com/exercises/adductors/bodyweight/copenhagen-plank',
+    'Cable Pallof Press':'https://musclewiki.com/exercises/obliques/cables/pallof-press',
+    'Incline Dumbbell Press':'https://musclewiki.com/exercises/chest/dumbbell/incline-dumbbell-press',
+    'Incline Barbell Press':'https://musclewiki.com/exercises/chest/barbell/incline-bench-press',
+    'Incline Chest Press (Machine)':'https://musclewiki.com/exercises/chest/machine/incline-chest-press',
+    'Kettlebell Swings':'https://musclewiki.com/exercises/hamstrings/kettlebell/kettlebell-swing',
+    'Dumbbell Swings':'https://musclewiki.com/exercises/hamstrings/dumbbell/dumbbell-swing',
+    'Cable Pull-Through':'https://musclewiki.com/exercises/glutes/cables/cable-pull-through',
+    'Face Pulls':'https://musclewiki.com/exercises/rear-deltoids/cables/face-pull',
+    'Reverse Pec Deck':'https://musclewiki.com/exercises/rear-deltoids/machine/reverse-pec-deck',
+    'Biceps Curls':'https://musclewiki.com/exercises/biceps/dumbbell/dumbbell-curl',
+    'Cable Curl (EZ/Bar)':'https://musclewiki.com/exercises/biceps/cables/cable-curl',
+    'Preacher Curl (Machine/Bench)':'https://musclewiki.com/exercises/biceps/machine/preacher-curl',
+    'Triceps Rope Pushdowns':'https://musclewiki.com/exercises/triceps/cables/rope-pushdown',
+    'Straight-Bar Pushdown':'https://musclewiki.com/exercises/triceps/cables/straight-bar-pushdown',
+    'Overhead Cable Extension':'https://musclewiki.com/exercises/triceps/cables/overhead-cable-extension',
+    'Front Squat':'https://musclewiki.com/exercises/quadriceps/barbell/front-squat',
+    'Goblet Squat':'https://musclewiki.com/exercises/quadriceps/dumbbell/goblet-squat',
+    'Barbell Hip Thrust':'https://musclewiki.com/exercises/glutes/barbell/hip-thrust',
+    'Smith Machine Hip Thrust':'https://musclewiki.com/exercises/glutes/machine/smith-machine-hip-thrust',
+    'Glute Drive / Hip Thrust Machine':'https://musclewiki.com/exercises/glutes/machine/hip-thrust-machine',
+    'Leg Curl (Lying)':'https://musclewiki.com/exercises/hamstrings/machine/lying-leg-curl',
+    'Leg Curl (Seated)':'https://musclewiki.com/exercises/hamstrings/machine/seated-leg-curl',
+    'Nordic Curl (Assisted)':'https://musclewiki.com/exercises/hamstrings/bodyweight/nordic-hamstring-curl',
+    'Arnold Press (DB)':'https://musclewiki.com/exercises/shoulders/dumbbell/arnold-press',
+    'Overhead Press (lighter)':'https://musclewiki.com/exercises/shoulders/dumbbell/dumbbell-shoulder-press'
+  };
+  function siteSearch(base, q){ return `${base}${encodeURIComponent(q)}`; }
+  const MW_SEARCH = 'https://duckduckgo.com/?q=site%3Amusclewiki.com+';
+  const EXRX_SEARCH = 'https://duckduckgo.com/?q=site%3Aexrx.net+';
+
+  function resolveExerciseUrl(title){
+    // strip any set tag from link text if present
+    const clean = title.replace(/\s*\u00D7?\s*\d+[^)]*$/,'').trim();
+    // exact map first
+    if(MW_MAP[clean]) return MW_MAP[clean];
+    // try common simplifications
+    const sim = clean.replace(/\s*\(.*?\)\s*/g,'').replace(/\s{2,}/g,' ').trim();
+    if(MW_MAP[sim]) return MW_MAP[sim];
+    // fallback: site search (MuscleWiki primary, ExRx backup chained with OR)
+    return siteSearch(MW_SEARCH, clean) + '+OR+' + encodeURIComponent(`site:exrx.net ${clean}`);
+  }
+
+  // Attach variant button, apply saved variant, and wire name links to external form
   document.querySelectorAll('.ex').forEach(ex=>{
     const cb = ex.querySelector('input[data-key]'); if(!cb) return;
     const key = cb.dataset.key;
-    const options = VARIANTS[key]; if(!options) return;
+    const options = VARIANTS[key];
+    const contentBox = ex.querySelector('.content');
+    let nameLink = contentBox?.querySelector('a.ex-link');
+  // --- Ensure required elements exist so names/descriptions can render ---
+    if (contentBox) {
+  // Create the anchor if it's missing (and move any existing <strong> into it)
+      if (!nameLink) {
+        nameLink = document.createElement('a');
+        nameLink.className = 'ex-link';
+        nameLink.href = '#';
 
-    const contentBox = ex.querySelector('div:nth-of-type(2)');
-    const titleEl = contentBox?.querySelector('strong');
-    const descEl  = contentBox?.querySelector('small');
+        // If there is already a <strong>, wrap/migrate it; otherwise create one
+        let strong = contentBox.querySelector('strong');
+        if (!strong) {
+          strong = document.createElement('strong');
+          strong.textContent = (ex.getAttribute('data-ex') || 'Exercise').trim();
+        } else {
+          strong = strong.cloneNode(true); // clone in case we’re reusing
+        }
+        nameLink.appendChild(strong);
+
+        // Insert link at the top of the content box
+        contentBox.insertBefore(nameLink, contentBox.firstChild);
+      }
+
+      // Ensure there is a <small> description element
+      if (!contentBox.querySelector('small')) {
+        const small = document.createElement('small');
+        small.textContent = ''; // variant apply will fill this in
+        // Place it right after the name link (or at end if needed)
+        if (nameLink.nextSibling) {
+          contentBox.insertBefore(small, nameLink.nextSibling);
+        } else {
+          contentBox.appendChild(small);
+        }
+      }
+    }
+    // ----------------------------------------------------------------------
+
     const metaEl  = ex.querySelector('.meta');
+    const vb = ex.querySelector('.mid .variant-btn');
 
-    let vb = contentBox.querySelector('.variant-btn');
-    if(!vb){ vb=document.createElement('button'); vb.className='variant-btn'; vb.type='button'; vb.setAttribute('aria-label','Choose alternative exercise'); vb.textContent='▼'; titleEl?.insertAdjacentElement('afterend', vb); }
+    // menu + selection if variants exist
+    if(options){
+      const saved = savedVariant[key] || options[0].id;
+      const cur = options.find(o=>o.id===saved) || options[0];
+      applyVariant(cur);
 
-    const selId = savedVariant[key] || options[0].id;
-    const cur = options.find(o=>o.id===selId) || options[0];
-    applyVariant(cur);
-
-    vb.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      document.querySelectorAll('.variant-menu').forEach(m=>m.remove());
-      const menu=document.createElement('div'); menu.className='variant-menu';
-      const h=document.createElement('h4'); h.textContent='Choose alternative'; menu.appendChild(h);
-      options.forEach(o=>{
-        const b=document.createElement('button'); b.type='button'; b.className='variant-opt';
-        b.innerHTML=`<div class="title">${o.title} <span class="sets">${o.sets}</span></div><div class="cat">${o.category}</div>`;
-        const sub=document.createElement('small'); sub.textContent=o.blurb; b.appendChild(sub);
-        b.addEventListener('click', ()=>{ savedVariant[key]=o.id; setLS(variantKey, savedVariant); applyVariant(o); flashToast('Exercise updated'); menu.remove(); });
-        menu.appendChild(b);
+      vb.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        document.querySelectorAll('.variant-menu').forEach(m=>m.remove());
+        const menu=document.createElement('div'); menu.className='variant-menu';
+        const h=document.createElement('h4'); h.textContent='Choose alternative'; menu.appendChild(h);
+        options.forEach(o=>{
+          const b=document.createElement('button'); b.type='button'; b.className='variant-opt';
+          b.innerHTML=`<div class="title">${o.title} <span class="sets">${o.sets}</span></div><div class="cat">${o.category}</div>`;
+          const sub=document.createElement('small'); sub.textContent=o.blurb; b.appendChild(sub);
+          b.addEventListener('click', ()=>{ savedVariant[key]=o.id; setLS(variantKey, savedVariant); applyVariant(o); flashToast('Exercise updated'); menu.remove(); });
+          menu.appendChild(b);
+        });
+        document.body.appendChild(menu);
+        const r=vb.getBoundingClientRect();
+        Object.assign(menu.style,{left:(r.left+window.scrollX)+'px',top:(r.bottom+window.scrollY+6)+'px'});
+        requestAnimationFrame(()=>menu.classList.add('open'));
       });
-      document.body.appendChild(menu);
-      const r=vb.getBoundingClientRect();
-      Object.assign(menu.style,{left:(r.left+window.scrollX)+'px', top:(r.bottom+window.scrollY+6)+'px'});
-      requestAnimationFrame(()=>menu.classList.add('open'));
-    });
 
-    function applyVariant(o){
-      if(titleEl){ titleEl.innerHTML=`${o.title} <span class="tag">${o.sets}</span>`; titleEl.insertAdjacentElement('afterend', vb); }
-      if(descEl){ descEl.textContent=o.blurb; }
-      if(metaEl){ metaEl.textContent=o.category; }
-      ex.setAttribute('data-ex', o.title);
-      ex.setAttribute('data-variant', o.id);
+      function applyVariant(o){
+        // Update the exercise name (inside the <a><strong>…</strong></a>)
+        if(nameLink){
+          let strong = nameLink.querySelector('strong');
+          if(!strong){
+            strong = document.createElement('strong');
+            nameLink.innerHTML = '';
+            nameLink.appendChild(strong);
+          }
+          strong.innerHTML = `${o.title} <span class="tag">${o.sets}</span>`;
+        }
+
+        // Update the description (the <small> right below)
+        const small = contentBox?.querySelector('small');
+        if(small) small.textContent = o.blurb;
+
+        // Update the category label (right-hand meta)
+        if(metaEl) metaEl.textContent = o.category;
+
+        // Save info in dataset for timers + links
+        ex.setAttribute('data-ex', o.title);
+        ex.setAttribute('data-variant', o.id);
+      }
+    }
+
+    // clicking the NAME opens external form help (variants respected)
+    if(nameLink){
+      nameLink.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const currentTitle = ex.getAttribute('data-ex') || nameLink.textContent || 'Exercise';
+        const url = resolveExerciseUrl(currentTitle.trim());
+        window.open(url, '_blank', 'noopener,noreferrer');
+      });
     }
   });
 
   document.addEventListener('click', ()=>{ document.querySelectorAll('.variant-menu').forEach(m=>m.remove()); });
   document.addEventListener('scroll', ()=>{ document.querySelectorAll('.variant-menu').forEach(m=>m.remove()); }, true);
 
-  // ===== Rest Timers (bind to existing buttons or create if missing) =====
+  // ===== Rest Timers =====
   const timersHost = document.querySelector('.running-timers');
   const restKey = 'pocket:rest';
   const savedRestTimes = getLS(restKey, {}); // { "<exKey>::<variantId>": seconds }
@@ -775,15 +969,12 @@
     const key=cb.dataset.key;
     const left=ex.querySelector('.left'); if(!left) return;
 
-    // Use existing buttons if present; otherwise create
-    let tBtn = left.querySelector('.timer-btn');
-    if(!tBtn){ tBtn=document.createElement('button'); tBtn.type='button'; tBtn.className='timer-btn'; tBtn.setAttribute('aria-label','Start rest timer'); tBtn.textContent='⏱'; left.appendChild(tBtn); }
-    let pBtn = left.querySelector('.preset-btn');
-    if(!pBtn){ pBtn=document.createElement('button'); pBtn.type='button'; pBtn.className='preset-btn'; pBtn.setAttribute('aria-label','Timer presets'); pBtn.textContent='⋯'; left.appendChild(pBtn); }
+    let tBtn = left.querySelector('.timer-btn'); if(!tBtn){ tBtn=document.createElement('button'); tBtn.type='button'; tBtn.className='timer-btn'; tBtn.setAttribute('aria-label','Start rest timer'); tBtn.textContent='⏱'; left.appendChild(tBtn); }
+    let pBtn = left.querySelector('.preset-btn'); if(!pBtn){ pBtn=document.createElement('button'); pBtn.type='button'; pBtn.className='preset-btn'; pBtn.setAttribute('aria-label','Timer presets'); pBtn.textContent='⋯'; left.appendChild(pBtn); }
 
     const variantId = ()=> ex.dataset.variant || 'default';
     const restMapKey = ()=> `${key}::${variantId()}`;
-    const label = ()=> (ex.getAttribute('data-ex') || ex.querySelector('strong')?.textContent || 'Exercise').trim().replace(/\s*\(.+?\)/,'');
+    const label = ()=> (ex.getAttribute('data-ex') || ex.querySelector('.content strong')?.textContent || 'Exercise').trim().replace(/\s*\(.+?\)/,'');
 
     tBtn.addEventListener('click', (e)=>{
       e.stopPropagation();
