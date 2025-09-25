@@ -125,7 +125,7 @@
   <header>
     <div>
       <h1>5-Day Hybrid Plan • Pocket Coach</h1>
-      <p class="lead">Balanced strength, shaping, core & conditioning — phone-friendly and offline.</p>
+      <p class="lead">Balanced strength, shaping, core & conditioning.</p>
     </div>
     <div class="controls">
       <button class="icon" id="expandAll" title="Expand all" aria-label="Expand all">▸▸</button>
@@ -134,14 +134,11 @@
     </div>
   </header>
 
-  <section class="goals" aria-label="Goals selection">
-    <div style="min-width:72px"><strong class="small">Goals</strong></div>
-    <button class="goal-btn" data-goal="strength">🏋️ Build Strength</button>
-    <button class="goal-btn" data-goal="hypertrophy">💪 Muscle/Shape</button>
-    <button class="goal-btn" data-goal="definition">🔥 Fat Loss / Tone</button>
-    <button class="goal-btn" data-goal="core">🦴 Core & Posture</button>
-    <button class="goal-btn" data-goal="hybrid">⚡ Hybrid (Cardio + Strength)</button>
-    <div style="margin-left:auto;font-size:12px;color:var(--muted)">Saved locally • Tap to toggle</div>
+  <section class="goals" aria-label="Resources">
+    <div style="min-width:72px"><strong class="small">Resources</strong></div>
+    <a class="goal-btn" href="https://musclewiki.com/" target="_blank" rel="noopener">Wiki Exercises</a>
+    <a class="goal-btn" href="https://exrx.net/Lists/Directory" target="_blank" rel="noopener">ExRx Exercises</a>
+    <a class="goal-btn" href="https://exrx.net/Lists/CardioExercises" target="_blank" rel="noopener">ExRx Cardio</a>
   </section>
 
   <main>
@@ -618,8 +615,6 @@
   document.getElementById('expandAll').addEventListener('click', ()=>{ document.querySelectorAll('.day-panel').forEach(c=>{c.classList.add('open'); c.setAttribute('aria-hidden','false');}); setLS('pocket:expanded', Object.fromEntries(Array.from(document.querySelectorAll('.day')).map(d=>[d.id,true])));});
   document.getElementById('collapseAll').addEventListener('click', ()=>{ document.querySelectorAll('.day-panel').forEach(c=>{c.classList.remove('open'); c.setAttribute('aria-hidden','true');}); setLS('pocket:expanded', {});});
   document.getElementById('clearChecks').addEventListener('click', ()=>{ if(!confirm('Clear all saved checks for this device?')) return; document.querySelectorAll('input[type="checkbox"][data-key]').forEach(cb=>cb.checked=false); setLS('pocket:checks', {}); });
-  const savedGoals = getLS('pocket:goals', {});
-  document.querySelectorAll('.goal-btn').forEach(btn=>{ const key=btn.dataset.goal; if(savedGoals[key]) btn.classList.add('active'); btn.addEventListener('click', ()=>{ const on=btn.classList.toggle('active'); savedGoals[key]=on; setLS('pocket:goals', savedGoals); flashToast(on?`Goal saved: ${key}`:`Goal removed: ${key}`); });});
   const savedChecks = getLS('pocket:checks', {});
   document.querySelectorAll('input[type="checkbox"][data-key]').forEach(cb=>{ const k=cb.dataset.key; cb.checked=!!savedChecks[k]; cb.addEventListener('change', ()=>{ savedChecks[k]=cb.checked; setLS('pocket:checks', savedChecks); });});
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ document.querySelectorAll('.content.open').forEach(c=>{c.classList.remove('open'); c.setAttribute('aria-hidden','true');}); setLS('pocket:expanded', {});} });
@@ -753,64 +748,67 @@
   // ===== External link resolver (MuscleWiki primary; ExRx fallback via site search) =====
   // Map some common movements to stable MuscleWiki slugs. For everything else, fall back to site search.
   const MW_MAP = {
-    'Barbell Bench Press':'https://musclewiki.com/exercises/chest/barbell/bench-press',
-    'Dumbbell Bench Press':'https://musclewiki.com/exercises/chest/dumbbell/dumbbell-bench-press',
-    'Machine Chest Press':'https://musclewiki.com/exercises/chest/machine/machine-chest-press',
-    'Push-Ups (Weighted/Assisted)':'https://musclewiki.com/exercises/chest/bodyweight/push-up',
-    'Pull-Ups':'https://musclewiki.com/exercises/back/bodyweight/pull-up',
-    'Lat Pulldown':'https://musclewiki.com/exercises/back/machine/lat-pulldown',
-    'Assisted Pull-Up Machine':'https://musclewiki.com/exercises/back/machine/assisted-pull-up',
-    'Inverted Row (Smith/TRX)':'https://musclewiki.com/exercises/back/bodyweight/inverted-row',
-    'Barbell Overhead Press':'https://musclewiki.com/exercises/shoulders/barbell/overhead-press',
-    'Dumbbell Shoulder Press (Seated)':'https://musclewiki.com/exercises/shoulders/dumbbell/dumbbell-shoulder-press',
-    'Machine Shoulder Press':'https://musclewiki.com/exercises/shoulders/machine/shoulder-press',
-    'Barbell Row':'https://musclewiki.com/exercises/back/barbell/barbell-row',
-    'Seated Cable Row':'https://musclewiki.com/exercises/back/cables/seated-cable-row',
-    'Chest-Supported Row (Machine)':'https://musclewiki.com/exercises/back/machine/chest-supported-row',
-    '1-Arm Dumbbell Row (Bench)':'https://musclewiki.com/exercises/back/dumbbell/one-arm-dumbbell-row',
-    'Dumbbell Lateral Raises':'https://musclewiki.com/exercises/shoulders/dumbbell/lateral-raise',
-    'Cable Lateral Raise':'https://musclewiki.com/exercises/shoulders/cables/cable-lateral-raise',
-    'Machine Lateral Raise':'https://musclewiki.com/exercises/shoulders/machine/lateral-raise',
-    'Back Squat':'https://musclewiki.com/exercises/quadriceps/barbell/back-squat',
-    'Hack Squat (Machine)':'https://musclewiki.com/exercises/quadriceps/machine/hack-squat',
-    'Leg Press':'https://musclewiki.com/exercises/quadriceps/machine/leg-press',
-    'Smith Machine Squat':'https://musclewiki.com/exercises/quadriceps/machine/smith-machine-squat',
-    'Romanian Deadlift':'https://musclewiki.com/exercises/hamstrings/barbell/romanian-deadlift',
-    'Dumbbell RDL':'https://musclewiki.com/exercises/hamstrings/dumbbell/dumbbell-rdl',
-    'Smith Machine RDL':'https://musclewiki.com/exercises/hamstrings/machine/smith-machine-rdl',
-    'Walking Lunges':'https://musclewiki.com/exercises/glutes/dumbbell/walking-lunge',
-    'Bulgarian Split Squat':'https://musclewiki.com/exercises/quadriceps/dumbbell/bulgarian-split-squat',
-    'Reverse Lunges':'https://musclewiki.com/exercises/quadriceps/dumbbell/reverse-lunge',
-    'Hanging Leg Raises':'https://musclewiki.com/exercises/abdominals/bodyweight/hanging-leg-raise',
-    'Captain’s Chair Knee Raise':'https://musclewiki.com/exercises/abdominals/machine/captains-chair-knee-raise',
-    'Lying Leg Raise':'https://musclewiki.com/exercises/abdominals/bodyweight/lying-leg-raise',
-    'Side Plank':'https://musclewiki.com/exercises/obliques/bodyweight/side-plank',
-    'Copenhagen Side Plank (light)':'https://musclewiki.com/exercises/adductors/bodyweight/copenhagen-plank',
-    'Cable Pallof Press':'https://musclewiki.com/exercises/obliques/cables/pallof-press',
-    'Incline Dumbbell Press':'https://musclewiki.com/exercises/chest/dumbbell/incline-dumbbell-press',
-    'Incline Barbell Press':'https://musclewiki.com/exercises/chest/barbell/incline-bench-press',
-    'Incline Chest Press (Machine)':'https://musclewiki.com/exercises/chest/machine/incline-chest-press',
-    'Kettlebell Swings':'https://musclewiki.com/exercises/hamstrings/kettlebell/kettlebell-swing',
-    'Dumbbell Swings':'https://musclewiki.com/exercises/hamstrings/dumbbell/dumbbell-swing',
-    'Cable Pull-Through':'https://musclewiki.com/exercises/glutes/cables/cable-pull-through',
-    'Face Pulls':'https://musclewiki.com/exercises/rear-deltoids/cables/face-pull',
-    'Reverse Pec Deck':'https://musclewiki.com/exercises/rear-deltoids/machine/reverse-pec-deck',
-    'Biceps Curls':'https://musclewiki.com/exercises/biceps/dumbbell/dumbbell-curl',
-    'Cable Curl (EZ/Bar)':'https://musclewiki.com/exercises/biceps/cables/cable-curl',
-    'Preacher Curl (Machine/Bench)':'https://musclewiki.com/exercises/biceps/machine/preacher-curl',
-    'Triceps Rope Pushdowns':'https://musclewiki.com/exercises/triceps/cables/rope-pushdown',
-    'Straight-Bar Pushdown':'https://musclewiki.com/exercises/triceps/cables/straight-bar-pushdown',
-    'Overhead Cable Extension':'https://musclewiki.com/exercises/triceps/cables/overhead-cable-extension',
-    'Front Squat':'https://musclewiki.com/exercises/quadriceps/barbell/front-squat',
-    'Goblet Squat':'https://musclewiki.com/exercises/quadriceps/dumbbell/goblet-squat',
+    'Barbell Bench Press':'https://musclewiki.com/exercise/barbell-bench-press',
+    'Dumbbell Bench Press':'https://musclewiki.com/exercise/dumbbell-bench-press',
+    'Machine Chest Press':'https://musclewiki.com/exercise/machine-chest-press',
+    'Push-Ups (Weighted/Assisted)':'https://musclewiki.com/exercise/push-up',
+    'Pull-Ups':'https://musclewiki.com/exercise/pull-ups',
+    'Lat Pulldown':'https://musclewiki.com/exercise/machine-pulldown',
+    'Assisted Pull-Up Machine':'https://musclewiki.com/exercise/machine-assisted-pull-up',
+    'Inverted Row (Smith/TRX)':'https://musclewiki.com/exercise/smith-machine-inverted-row',
+    'Barbell Overhead Press':'https://musclewiki.com/exercise/barbell-overhead-press',
+    'Dumbbell Shoulder Press (Seated)':'https://musclewiki.com/exercise/dumbbell-seated-overhead-press',
+    'Machine Shoulder Press':'https://musclewiki.com/exercise/machine-overhand-overhead-press',
+    'Barbell Row':'https://musclewiki.com/exercise/barbell-pronated-row',
+    'Seated Cable Row':'https://musclewiki.com/exercise/machine-seated-cable-row',
+    'Chest-Supported Row (Machine)':'https://musclewiki.com/exercise/cable-rope-upright-row',
+    '1-Arm Dumbbell Row (Bench)':'https://musclewiki.com/exercise/dumbbell-single-arm-row',
+    'Dumbbell Lateral Raises':'https://musclewiki.com/exercise/dumbbell-lateral-raise',
+    'Cable Lateral Raise':'https://musclewiki.com/exercise/cable-low-single-arm-lateral-raise',
+    'Machine Lateral Raise':'https://musclewiki.com/exercise/machine-standing-lateral-raise',
+    'Back Squat':'https://musclewiki.com/exercise/bodyweight-squat',
+    'Hack Squat (Machine)':'https://musclewiki.com/exercise/machine-hack-squat',
+    'Leg Press':'https://musclewiki.com/exercise/machine-leg-press',
+    'Smith Machine Squat':'https://musclewiki.com/exercise/smith-machine-squat',
+    'Romanian Deadlift':'https://musclewiki.com/exercise/barbell-romanian-deadlift',
+    'Dumbbell RDL':'https://musclewiki.com/exercise/dumbbell-romanian-deadlift',
+    'Smith Machine RDL':'https://musclewiki.com/exercise/smith-machine-romanian-deadlift',
+    'Walking Lunges':'https://musclewiki.com/exercise/lunge-walking',
+    'Bulgarian Split Squat':'https://musclewiki.com/exercise/barbell-bulgarian-split-squat',
+    'Reverse Lunges':'https://musclewiki.com/exercise/bodyweight-reverse-lunge',
+    'Hanging Leg Raises':'https://musclewiki.com/exercise/hanging-knee-raises',
+    'Captain’s Chair Knee Raise':'https://musclewiki.com/exercise/hanging-knee-raises',
+    'Lying Leg Raise':'https://musclewiki.com/exercise/hanging-knee-raises',
+    'Side Plank':'https://musclewiki.com/exercise/side-plank-up-down',
+    'Copenhagen Side Plank (light)':'https://musclewiki.com/exercise/trx-forearm-side-plank',
+    'Cable Pallof Press':'https://musclewiki.com/exercise/cable-pallof-press',
+    'Incline Dumbbell Press':'https://musclewiki.com/exercise/dumbbell-incline-bench-press',
+    'Incline Barbell Press':'https://musclewiki.com/exercise/barbell-incline-bench-press',
+    'Incline Chest Press (Machine)':'https://musclewiki.com/exercise/machine-plate-loaded-incline-chest-press',
+    'Kettlebell Swings':'https://musclewiki.com/exercise/kettlebell-swing',
+    'Dumbbell Swings':'https://musclewiki.com/exercise/kettlebell-swing',
+    'Cable Pull-Through':'https://musclewiki.com/exercise/cable-pull-through',
+    'Face Pulls':'https://musclewiki.com/exercise/machine-face-pulls',
+    'Reverse Pec Deck':'https://musclewiki.com/exercise/machine-pec-fly',
+    'Biceps Curls':'https://musclewiki.com/exercise/dumbbell-curl',
+    'Cable Curl (EZ/Bar)':'https://musclewiki.com/exercise/cable-single-arm-bayesian-curl',
+    'Preacher Curl (Machine/Bench)':'https://musclewiki.com/exercise/machine-seated-plate-loaded-preacher-curl',
+    'Triceps Rope Pushdowns':'https://musclewiki.com/exercise/cable-rope-pushdown',
+    'Straight-Bar Pushdown':'https://musclewiki.com/exercise/cable-bar-pushdown',
+    'Overhead Cable Extension':'https://musclewiki.com/exercise/cable-rope-overhead-tricep-extension',
+    'Front Squat':'https://musclewiki.com/exercise/barbell-front-squat-bodybuilding',
+    'Goblet Squat':'https://musclewiki.com/exercise/dumbbell-goblet-squat',
     'Barbell Hip Thrust':'https://musclewiki.com/exercises/glutes/barbell/hip-thrust',
-    'Smith Machine Hip Thrust':'https://musclewiki.com/exercises/glutes/machine/smith-machine-hip-thrust',
-    'Glute Drive / Hip Thrust Machine':'https://musclewiki.com/exercises/glutes/machine/hip-thrust-machine',
-    'Leg Curl (Lying)':'https://musclewiki.com/exercises/hamstrings/machine/lying-leg-curl',
-    'Leg Curl (Seated)':'https://musclewiki.com/exercises/hamstrings/machine/seated-leg-curl',
-    'Nordic Curl (Assisted)':'https://musclewiki.com/exercises/hamstrings/bodyweight/nordic-hamstring-curl',
-    'Arnold Press (DB)':'https://musclewiki.com/exercises/shoulders/dumbbell/arnold-press',
-    'Overhead Press (lighter)':'https://musclewiki.com/exercises/shoulders/dumbbell/dumbbell-shoulder-press'
+    'Smith Machine Hip Thrust':'https://musclewiki.com/exercise/smith-machine-hip-thrust',
+    'Glute Drive / Hip Thrust Machine':'https://musclewiki.com/exercise/machine-hip-abduction',
+    'Leg Curl (Lying)':'https://musclewiki.com/exercise/cable-single-leg-laying-leg-curl',
+    'Leg Curl (Seated)':'https://musclewiki.com/exercise/seated-leg-curl',
+    'Nordic Curl (Assisted)':'https://musclewiki.com/exercise/nordic-hamstring-curl',
+    'Arnold Press (DB)':'https://musclewiki.com/exercise/dumbbell-arnold-press',
+    'Incline Bench Press':'https://musclewiki.com/exercises/chest/barbell/incline-bench-press',
+    'Pull-Ups / Chin-Ups':'https://musclewiki.com/exercises/back/bodyweight/pull-up',
+    'Overhead Press (lighter)':'https://musclewiki.com/exercise/dumbbell-overhead-press'
+
   };
   function siteSearch(base, q){ return `${base}${encodeURIComponent(q)}`; }
   const MW_SEARCH = 'https://duckduckgo.com/?q=site%3Amusclewiki.com+';
